@@ -1,2 +1,2 @@
-# template_vue
-Template of Vue.js web application.
+# Vue.js Application Template
+Collection of features that help you create simple vue.js applications.
