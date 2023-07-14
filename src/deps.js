@@ -7,4 +7,4 @@ export {createStore, useStore} from "https://cdn.jsdelivr.net/npm/vuex@4/dist/vu
 // @deno-types="https://esm.sh/vuetify@3/dist/vuetify.d.ts"
 export {createVuetify} from "https://cdn.jsdelivr.net/npm/vuetify@3/dist/vuetify.esm.min.js";
 
-export {fetchComponent} from "https://esm.sh/gh/dojyorin/vue_sfc_portable@v1.5.3/mod.ts?bundle&target=esnext";
+export {fetchComponent} from "https://esm.sh/gh/dojyorin/vue_sfc_portable@v1.5.4/mod.ts?bundle&target=esnext";
