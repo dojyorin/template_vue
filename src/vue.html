@@ -39,7 +39,6 @@
         template: /*html*/`
             <v-app-bar density="compact" color="primary">
                 <v-app-bar-nav-icon @click="nav = !nav"></v-app-bar-nav-icon>
-
                 <v-app-bar-title>Application</v-app-bar-title>
             </v-app-bar>
         `,
@@ -133,13 +132,10 @@
                 <x-loading></x-loading>
                 <x-notify></x-notify>
                 <x-navigation></x-navigation>
-
                 <x-header></x-header>
-
                 <v-main>
                     <router-view></router-view>
                 </v-main>
-
                 <x-footer></x-footer>
             </v-app>
         `,
@@ -403,14 +399,17 @@
             transform: scale(0) rotate(45deg);
             opacity: 0;
         }
+
         80% {
             transform: scale(0) rotate(45deg);
             opacity: 0.5;
         }
+
         81% {
             transform: scale(4) rotate(45deg);
             opacity: 1;
         }
+
         100% {
             transform: scale(50) rotate(45deg);
             opacity: 0;
