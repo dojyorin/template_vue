@@ -10,14 +10,17 @@
             transform: scale(0) rotate(45deg);
             opacity: 0;
         }
+
         80% {
             transform: scale(0) rotate(45deg);
             opacity: 0.5;
         }
+
         81% {
             transform: scale(4) rotate(45deg);
             opacity: 1;
         }
+
         100% {
             transform: scale(50) rotate(45deg);
             opacity: 0;

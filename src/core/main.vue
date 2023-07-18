@@ -3,13 +3,10 @@
         <x-loading></x-loading>
         <x-notify></x-notify>
         <x-navigation></x-navigation>
-
         <x-header></x-header>
-
         <v-main>
             <router-view></router-view>
         </v-main>
-
         <x-footer></x-footer>
     </v-app>
 </template>
