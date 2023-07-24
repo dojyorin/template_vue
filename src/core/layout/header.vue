@@ -10,7 +10,7 @@
 
     export default defineComponent({
         setup(){
-            const nav = inject("xg-navigation");
+            const nav = inject("g-navigation");
 
             return {nav};
         }

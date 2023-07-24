@@ -21,7 +21,7 @@
         setup(){
             const router = useRouter();
 
-            const nav = inject("xg-navigation");
+            const nav = inject("g-navigation");
 
             const routes = router.getRoutes().toSpliced(-1, 1);
 

@@ -26,7 +26,7 @@
 
             const count = ref(0);
 
-            const notifies = inject("xg-notifies");
+            const notifies = inject("g-notifies");
 
             const countx = computed(() => store.getters.count);
 
