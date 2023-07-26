@@ -78,7 +78,7 @@
 
             const nav = inject("g-navigation");
 
-            const routes = router.getRoutes().toSpliced(-1, 1);
+            const routes = router.options.routes.filter(({path}) => !/:/.test(path));
 
             return {nav, routes};
         }
@@ -336,10 +336,10 @@
         }
     });
 
-    const component = ((arg)=>{
+    const component = ((o)=>{
         return {
             install(context){
-                for(const [k, v] of Object.entries(arg)){
+                for(const [k, v] of Object.entries(o)){
                     context.component(k, v);
                 }
             }
@@ -348,10 +348,10 @@
         "g-x-reflect": sfc_component_reflect
     });
 
-    const provide = ((arg)=>{
+    const provide = ((o)=>{
         return {
             install(context){
-                for(const [k, v] of Object.entries(arg)){
+                for(const [k, v] of Object.entries(o)){
                     context.provide(k, v);
                 }
             }
