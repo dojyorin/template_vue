@@ -9,7 +9,7 @@ export const provide = ((arg)=>{
         }
     };
 })({
-    "xg-navigation": ref(false),
-    "xg-loading": ref(false),
-    "xg-notifies": reactive([])
+    "g-navigation": ref(false),
+    "g-loading": ref(true),
+    "g-notifies": reactive([])
 });

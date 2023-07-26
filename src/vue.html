@@ -43,7 +43,7 @@
             </v-app-bar>
         `,
         setup(){
-            const nav = inject("xg-navigation");
+            const nav = inject("g-navigation");
 
             return {nav};
         }
@@ -76,7 +76,7 @@
         setup(){
             const router = useRouter();
 
-            const nav = inject("xg-navigation");
+            const nav = inject("g-navigation");
 
             const routes = router.getRoutes().toSpliced(-1, 1);
 
@@ -91,7 +91,7 @@
             </v-overlay>
         `,
         setup(){
-            const loading = inject("xg-loading");
+            const loading = inject("g-loading");
 
             return {loading};
         }
@@ -108,7 +108,7 @@
             </v-snackbar>
         `,
         setup(){
-            const notifies = inject("xg-notifies");
+            const notifies = inject("g-notifies");
 
             async function notifyTimeout(notify, ms){
                 await new Promise(done => setTimeout(done, ms));
@@ -147,7 +147,7 @@
             "x-navigation": sfc_layout_navigation
         },
         setup(){
-            const loading = inject("xg-loading");
+            const loading = inject("g-loading");
 
             onMounted(()=>{
                 loading.value = false;
@@ -181,7 +181,7 @@
 
             const count = ref(0);
 
-            const notifies = inject("xg-notifies");
+            const notifies = inject("g-notifies");
 
             const countx = computed(() => store.getters.count);
 
@@ -218,10 +218,10 @@
                             </v-card-item>
 
                             <v-card-actions class="justify-center">
-                                <xg-reflect>
+                                <g-x-reflect>
                                     <v-btn color="orange-darken-1" variant="flat" @click="resetx()">ResetX</v-btn>
                                     <v-btn color="teal-darken-1" variant="flat" @click="resetdelayx()">ResetDelayX</v-btn>
-                                </xg-reflect>
+                                </g-x-reflect>
                             </v-card-actions>
                         </v-card>
                     </v-col>
@@ -231,8 +231,8 @@
         setup(){
             const store = useStore();
 
-            const loading = inject("xg-loading");
-            const notifies = inject("xg-notifies");
+            const loading = inject("g-loading");
+            const notifies = inject("g-notifies");
 
             const countx = computed(() => store.getters.count);
 
@@ -262,7 +262,7 @@
 
     const sfc_page_404 = defineComponent({
         template: /*html*/`
-            <v-row no-gutters justify="center" class="fill-height align-center text-h4">Page Not Found ...</v-row>
+            <v-row no-gutters justify="center" class="fill-height align-center text-h4">Not Found</v-row>
         `
     });
 
@@ -270,15 +270,15 @@
         history: createWebHashHistory(),
         routes: [{
             path: "/",
-            name: "Home",
+            name: "index",
             component: sfc_page_index
         }, {
             path: "/sub",
-            name: "Sub",
+            name: "sub",
             component: sfc_page_sub
         }, {
             path: "/:catchAll(.*)",
-            name: "NotFound",
+            name: "404",
             component: sfc_page_404
         }]
     });
@@ -345,7 +345,7 @@
             }
         };
     })({
-        "xg-reflect": sfc_component_reflect
+        "g-x-reflect": sfc_component_reflect
     });
 
     const provide = ((arg)=>{
@@ -357,9 +357,9 @@
             }
         };
     })({
-        "xg-navigation": ref(false),
-        "xg-loading": ref(false),
-        "xg-notifies": reactive([])
+        "g-navigation": ref(false),
+        "g-loading": ref(true),
+        "g-notifies": reactive([])
     });
 
     const vue = createApp(sfc_main);
