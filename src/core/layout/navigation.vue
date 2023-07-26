@@ -23,7 +23,7 @@
 
             const nav = inject("g-navigation");
 
-            const routes = router.getRoutes().toSpliced(-1, 1);
+            const routes = router.options.routes.filter(({path}) => !/:/.test(path));
 
             return {nav, routes};
         }
