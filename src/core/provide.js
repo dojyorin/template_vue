@@ -10,6 +10,6 @@ export const provide = ((o)=>{
     };
 })({
     "g-navigation": ref(false),
-    "g-loading": ref(true),
+    "g-loading": ref(false),
     "g-notifies": reactive([])
 });

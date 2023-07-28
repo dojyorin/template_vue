@@ -12,7 +12,7 @@
 </template>
 
 <script>
-    import {defineComponent, defineAsyncComponent, inject, onMounted, fetchComponent} from "../deps.js";
+    import {defineComponent, defineAsyncComponent, fetchComponent} from "../deps.js";
 
     export default defineComponent({
         components: {
@@ -21,15 +21,6 @@
             "x-loading": defineAsyncComponent(fetchComponent("./layout/loading.vue")),
             "x-notify": defineAsyncComponent(fetchComponent("./layout/notify.vue")),
             "x-navigation": defineAsyncComponent(fetchComponent("./layout/navigation.vue"))
-        },
-        setup(){
-            const loading = inject("g-loading");
-
-            onMounted(()=>{
-                loading.value = false;
-            });
-
-            return {};
         }
     });
 </script>

@@ -1,6 +1,6 @@
 <template>
     <v-navigation-drawer floating temporary v-model="nav">
-        <v-toolbar density="compact" color="primary">
+        <v-toolbar density="compact" color="transparent">
             <v-btn icon="mdi-close" @click="nav = false"></v-btn>
         </v-toolbar>
 
