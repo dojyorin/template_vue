@@ -22,10 +22,10 @@
 </script>
 
 <script async type="module">
-    import {createApp, defineComponent, ref, reactive, inject, computed, onMounted} from "https://cdn.jsdelivr.net/npm/vue@3/dist/vue.esm-browser.prod.min.js";
+    import {createApp, defineComponent, ref, reactive, inject, computed} from "https://cdn.jsdelivr.net/npm/vue@3/dist/vue.esm-browser.prod.min.js";
     import {createRouter, createWebHashHistory, useRouter} from "https://cdn.jsdelivr.net/npm/vue-router@4/dist/vue-router.esm-browser.min.js";
     import {createStore, useStore} from "https://cdn.jsdelivr.net/npm/vuex@4/dist/vuex.esm-browser.prod.min.js";
-    import {createVuetify} from "https://cdn.jsdelivr.net/npm/vuetify@3/dist/vuetify.esm.min.js";
+    import {createVuetify, useDisplay, useLayout} from "https://cdn.jsdelivr.net/npm/vuetify@3/dist/vuetify.esm.min.js";
 
     const sfc_component_reflect = defineComponent({
         template: /*html*/`
@@ -37,9 +37,13 @@
 
     const sfc_layout_header = defineComponent({
         template: /*html*/`
-            <v-app-bar density="compact" color="primary">
+            <v-app-bar density="compact" class="text-white">
                 <v-app-bar-nav-icon @click="nav = !nav"></v-app-bar-nav-icon>
-                <v-app-bar-title>Application</v-app-bar-title>
+                <v-app-bar-title class="text-h5">Application</v-app-bar-title>
+
+                <template #image>
+                    <v-img gradient="45deg, #174AFF, #0ECDFF"></v-img>
+                </template>
             </v-app-bar>
         `,
         setup(){
@@ -51,7 +55,7 @@
 
     const sfc_layout_footer = defineComponent({
         template: /*html*/`
-            <v-footer app color="primary">
+            <v-footer app color="black">
                 <v-row no-gutters justify="center">Copyright</v-row>
             </v-footer>
         `
@@ -60,7 +64,7 @@
     const sfc_layout_navigation = defineComponent({
         template: /*html*/`
             <v-navigation-drawer floating temporary v-model="nav">
-                <v-toolbar density="compact" color="primary">
+                <v-toolbar density="compact" color="transparent">
                     <v-btn icon="mdi-close" @click="nav = false"></v-btn>
                 </v-toolbar>
 
@@ -86,7 +90,7 @@
 
     const sfc_layout_loading = defineComponent({
         template: /*html*/`
-            <v-overlay persistent no-click-animation z-index="3000" class="justify-center align-center" v-model="loading">
+            <v-overlay persistent no-click-animation z-index="4000" class="justify-center align-center" v-model="loading">
                 <v-progress-circular indeterminate size="60" width="4" color="primary"></v-progress-circular>
             </v-overlay>
         `,
@@ -99,7 +103,7 @@
 
     const sfc_layout_notify = defineComponent({
         template: /*html*/`
-            <v-snackbar v-for="notify in notifies" model-value position="fixed" location="top" z-index="2100" :color="notify.color" timeout="-1" v-bind="notifyTimeout(notify, 5000)">
+            <v-snackbar v-for="notify in notifies" model-value position="fixed" location="top" z-index="3000" :color="notify.color" timeout="-1" v-bind="notifyTimeout(notify, 5000)">
                 <span>{{notify.message}}</span>
 
                 <template #actions>
@@ -145,15 +149,6 @@
             "x-loading": sfc_layout_loading,
             "x-notify": sfc_layout_notify,
             "x-navigation": sfc_layout_navigation
-        },
-        setup(){
-            const loading = inject("g-loading");
-
-            onMounted(()=>{
-                loading.value = false;
-            });
-
-            return {};
         }
     });
 
@@ -260,6 +255,24 @@
         }
     });
 
+    const sfc_page_third = defineComponent({
+        template: /*html*/`
+            <v-img :height="height" class="text-center align-center text-white" gradient="45deg, #FF9F17, #FF4E0E">
+                <h1 v-if="mobile">MOBILE</h1>
+                <h1 v-else>DESKTOP</h1>
+            </v-img>
+        `,
+        setup(){
+            const display = useDisplay();
+            const layout = useLayout();
+
+            const mobile = computed(() => display.mobile.value);
+            const height = computed(() => display.height.value - layout.mainRect.value.top - layout.mainRect.value.bottom);
+
+            return {mobile, height};
+        }
+    });
+
     const sfc_page_404 = defineComponent({
         template: /*html*/`
             <v-row no-gutters justify="center" class="fill-height align-center text-h4">Not Found</v-row>
@@ -276,6 +289,10 @@
             path: "/sub",
             name: "sub",
             component: sfc_page_sub
+        }, {
+            path: "/third",
+            name: "third",
+            component: sfc_page_third
         }, {
             path: "/:catchAll(.*)",
             name: "404",
@@ -317,9 +334,9 @@
 
     const vuetify = createVuetify({
         theme: {
-            defaultTheme: "main-light",
+            defaultTheme: "main",
             themes: {
-                "main-light": {
+                "main": {
                     dark: false,
                     colors: {
                         primary: "#03A9F4",
@@ -358,7 +375,7 @@
         };
     })({
         "g-navigation": ref(false),
-        "g-loading": ref(true),
+        "g-loading": ref(false),
         "g-notifies": reactive([])
     });
 
