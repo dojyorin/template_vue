@@ -4,12 +4,10 @@
             <v-btn icon="mdi-close" @click="nav = false"></v-btn>
         </v-toolbar>
 
-        <v-list>
-            <template v-for="{path, name} in routes">
-                <v-list-item :to="path">
-                    <v-list-item-title>{{name}}</v-list-item-title>
-                </v-list-item>
-            </template>
+        <v-list nav density="compact">
+            <v-list-item v-for="{path, name} in routes" :to="path">
+                <v-list-item-title>{{name}}</v-list-item-title>
+            </v-list-item>
         </v-list>
     </v-navigation-drawer>
 </template>
