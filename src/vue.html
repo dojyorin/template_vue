@@ -130,28 +130,6 @@
         }
     });
 
-    const sfc_main = defineComponent({
-        template: /*html*/`
-            <v-app>
-                <x-loading></x-loading>
-                <x-notify></x-notify>
-                <x-navigation></x-navigation>
-                <x-header></x-header>
-                <v-main>
-                    <router-view></router-view>
-                </v-main>
-                <x-footer></x-footer>
-            </v-app>
-        `,
-        components: {
-            "x-header": sfc_layout_header,
-            "x-footer": sfc_layout_footer,
-            "x-loading": sfc_layout_loading,
-            "x-notify": sfc_layout_notify,
-            "x-navigation": sfc_layout_navigation
-        }
-    });
-
     const sfc_page_index = defineComponent({
         template: /*html*/`
             <v-container fluid>
@@ -277,6 +255,28 @@
         template: /*html*/`
             <v-row no-gutters justify="center" class="fill-height align-center text-h4">Not Found</v-row>
         `
+    });
+
+    const sfc_main = defineComponent({
+        template: /*html*/`
+            <v-app>
+                <x-loading></x-loading>
+                <x-notify></x-notify>
+                <x-navigation></x-navigation>
+                <x-header></x-header>
+                <v-main>
+                    <router-view></router-view>
+                </v-main>
+                <x-footer></x-footer>
+            </v-app>
+        `,
+        components: {
+            "x-header": sfc_layout_header,
+            "x-footer": sfc_layout_footer,
+            "x-loading": sfc_layout_loading,
+            "x-notify": sfc_layout_notify,
+            "x-navigation": sfc_layout_navigation
+        }
     });
 
     const route = createRouter({
