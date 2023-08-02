@@ -1,7 +1,7 @@
 <template>
     <v-img :height="height" class="text-center align-center text-white" gradient="45deg, #FF9F17, #FF4E0E">
-        <h1 v-if="mobile">MOBILE</h1>
-        <h1 v-else>DESKTOP</h1>
+        <span v-if="mobile" class="text-h4">MOBILE</span>
+        <span v-else class="text-h2">DESKTOP</span>
     </v-img>
 </template>
 
