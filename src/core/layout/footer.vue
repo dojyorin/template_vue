@@ -1,5 +1,5 @@
 <template>
-    <v-footer app color="black">
-        <v-row no-gutters justify="center">Copyright</v-row>
+    <v-footer app color="black" class="d-flex justify-center align-center">
+        <div>Copyright</div>
     </v-footer>
 </template>
