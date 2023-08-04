@@ -24,7 +24,6 @@
 <script async type="module">
     import {createApp, defineComponent, ref, reactive, inject, computed} from "https://cdn.jsdelivr.net/npm/vue@3/dist/vue.esm-browser.prod.min.js";
     import {createRouter, createWebHashHistory, useRouter} from "https://cdn.jsdelivr.net/npm/vue-router@4/dist/vue-router.esm-browser.min.js";
-    import {createStore, useStore} from "https://cdn.jsdelivr.net/npm/vuex@4/dist/vuex.esm-browser.prod.min.js";
     import {createVuetify, useDisplay, useLayout} from "https://cdn.jsdelivr.net/npm/vuetify@3/dist/vuetify.esm.min.js";
 
     const sfc_component_reflect = defineComponent({
@@ -47,7 +46,7 @@
             </v-app-bar>
         `,
         setup(){
-            const nav = inject("g-navigation");
+            const nav = inject("g-layout-navigation");
 
             return {nav};
         }
@@ -76,7 +75,7 @@
         setup(){
             const router = useRouter();
 
-            const nav = inject("g-navigation");
+            const nav = inject("g-layout-navigation");
 
             const routes = router.options.routes.filter(({path}) => !/:/.test(path));
 
@@ -91,7 +90,7 @@
             </v-overlay>
         `,
         setup(){
-            const loading = inject("g-loading");
+            const loading = inject("g-layout-loading");
 
             return {loading};
         }
@@ -108,7 +107,7 @@
             </v-snackbar>
         `,
         setup(){
-            const notifies = inject("g-notifies");
+            const notifies = inject("g-layout-notify");
 
             async function notifyTimeout(notify, ms){
                 await new Promise(done => setTimeout(done, ms));
@@ -146,13 +145,10 @@
             </v-container>
         `,
         setup(){
-            const store = useStore();
-
             const count = ref(0);
 
-            const notifies = inject("g-notifies");
-
-            const countx = computed(() => store.getters.count);
+            const notifies = inject("g-layout-notify");
+            const countx = inject("g-increment-count");
 
             function increment(){
                 count.value++;
@@ -164,7 +160,7 @@
             }
 
             function incrementx(){
-                store.commit("increment");
+                countx.value++;
 
                 notifies.push({
                     color: "purple",
@@ -189,7 +185,7 @@
                             <v-card-actions class="justify-center">
                                 <g-x-reflect>
                                     <v-btn color="orange-darken-1" variant="flat" @click="resetx()">ResetX</v-btn>
-                                    <v-btn color="teal-darken-1" variant="flat" @click="resetdelayx()">ResetDelayX</v-btn>
+                                    <v-btn color="teal-darken-1" variant="flat" @click="delayresetx()">DelayResetX</v-btn>
                                 </g-x-reflect>
                             </v-card-actions>
                         </v-card>
@@ -198,15 +194,12 @@
             </v-container>
         `,
         setup(){
-            const store = useStore();
-
-            const loading = inject("g-loading");
-            const notifies = inject("g-notifies");
-
-            const countx = computed(() => store.getters.count);
+            const loading = inject("g-layout-loading");
+            const notifies = inject("g-layout-notify");
+            const countx = inject("g-increment-count");
 
             function resetx(){
-                store.commit("reset");
+                countx.value = 0;
 
                 notifies.push({
                     color: "orange-darken-1",
@@ -214,9 +207,10 @@
                 });
             }
 
-            async function resetdelayx(){
+            async function delayresetx(){
                 loading.value = true;
-                await store.dispatch("delayReset");
+                await new Promise(done => setTimeout(done, 1000));
+                countx.value = 0;
                 loading.value = false;
 
                 notifies.push({
@@ -225,7 +219,7 @@
                 });
             }
 
-            return {countx, resetx, resetdelayx};
+            return {countx, resetx, delayresetx};
         }
     });
 
@@ -275,7 +269,7 @@
         }
     });
 
-    const route = createRouter({
+    const router = createRouter({
         history: createWebHashHistory(),
         routes: [{
             path: "/",
@@ -294,38 +288,6 @@
             name: "404",
             component: sfc_page_404
         }]
-    });
-
-    const store = createStore({
-        state(){
-            return {
-                count: 0
-            };
-        },
-
-        getters: {
-            count(s){
-                return s.count;
-            }
-        },
-
-        mutations: {
-            increment(s){
-                s.count++;
-            },
-
-            reset(s){
-                s.count = 0;
-            }
-        },
-
-        actions: {
-            async delayReset(context){
-                await new Promise(done => setTimeout(done, 1000));
-
-                context.commit("reset");
-            }
-        }
     });
 
     const vuetify = createVuetify({
@@ -349,36 +311,24 @@
         }
     });
 
-    const component = ((o)=>{
-        return {
-            install(context){
-                for(const [k, v] of Object.entries(o)){
-                    context.component(k, v);
-                }
-            }
-        };
-    })({
-        "g-x-reflect": sfc_component_reflect
-    });
+    const component = {
+        install(context){
+            context.component("g-x-reflect", sfc_component_reflect);
+        }
+    };
 
-    const provide = ((o)=>{
-        return {
-            install(context){
-                for(const [k, v] of Object.entries(o)){
-                    context.provide(k, v);
-                }
-            }
-        };
-    })({
-        "g-navigation": ref(false),
-        "g-loading": ref(false),
-        "g-notifies": reactive([])
-    });
+    const provide = {
+        install(context){
+            context.provide("g-layout-navigation", ref(false));
+            context.provide("g-layout-loading", ref(false));
+            context.provide("g-layout-notify", reactive([]));
+            context.provide("g-increment-count", ref(0));
+        }
+    };
 
     const vue = createApp(sfc_main);
 
-    vue.use(route);
-    vue.use(store);
+    vue.use(router);
     vue.use(vuetify);
     vue.use(component);
     vue.use(provide);
