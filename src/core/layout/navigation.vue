@@ -19,7 +19,7 @@
         setup(){
             const router = useRouter();
 
-            const nav = inject("g-navigation");
+            const nav = inject("g-layout-navigation");
 
             const routes = router.options.routes.filter(({path}) => !/:/.test(path));
 

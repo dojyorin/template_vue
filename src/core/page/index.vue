@@ -18,17 +18,14 @@
 </template>
 
 <script>
-    import {defineComponent, ref, inject, computed, useStore} from "../../deps.js";
+    import {defineComponent, ref, inject} from "../../deps.js";
 
     export default defineComponent({
         setup(){
-            const store = useStore();
-
             const count = ref(0);
 
-            const notifies = inject("g-notifies");
-
-            const countx = computed(() => store.getters.count);
+            const notifies = inject("g-layout-notify");
+            const countx = inject("g-increment-count");
 
             function increment(){
                 count.value++;
@@ -40,7 +37,7 @@
             }
 
             function incrementx(){
-                store.commit("increment");
+                countx.value++;
 
                 notifies.push({
                     color: "purple",

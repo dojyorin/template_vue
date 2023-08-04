@@ -10,7 +10,7 @@
                     <v-card-actions class="justify-center">
                         <g-x-reflect>
                             <v-btn color="orange-darken-1" variant="flat" @click="resetx()">ResetX</v-btn>
-                            <v-btn color="teal-darken-1" variant="flat" @click="resetdelayx()">ResetDelayX</v-btn>
+                            <v-btn color="teal-darken-1" variant="flat" @click="delayresetx()">DelayResetX</v-btn>
                         </g-x-reflect>
                     </v-card-actions>
                 </v-card>
@@ -20,19 +20,16 @@
 </template>
 
 <script>
-    import {defineComponent, inject, computed, useStore} from "../../deps.js";
+    import {defineComponent, inject} from "../../deps.js";
 
     export default defineComponent({
         setup(){
-            const store = useStore();
-
-            const loading = inject("g-loading");
-            const notifies = inject("g-notifies");
-
-            const countx = computed(() => store.getters.count);
+            const loading = inject("g-layout-loading");
+            const notifies = inject("g-layout-notify");
+            const countx = inject("g-increment-count");
 
             function resetx(){
-                store.commit("reset");
+                countx.value = 0;
 
                 notifies.push({
                     color: "orange-darken-1",
@@ -40,9 +37,10 @@
                 });
             }
 
-            async function resetdelayx(){
+            async function delayresetx(){
                 loading.value = true;
-                await store.dispatch("delayReset");
+                await new Promise(done => setTimeout(done, 1000));
+                countx.value = 0;
                 loading.value = false;
 
                 notifies.push({
@@ -51,7 +49,7 @@
                 });
             }
 
-            return {countx, resetx, resetdelayx};
+            return {countx, resetx, delayresetx};
         }
     });
 </script>

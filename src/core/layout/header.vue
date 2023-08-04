@@ -14,7 +14,7 @@
 
     export default defineComponent({
         setup(){
-            const nav = inject("g-navigation");
+            const nav = inject("g-layout-navigation");
 
             return {nav};
         }
