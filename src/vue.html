@@ -46,7 +46,7 @@
             </v-app-bar>
         `,
         setup(){
-            const nav = inject("g-layout-navigation");
+            const nav = inject("@layout:navigation");
 
             return {nav};
         }
@@ -75,7 +75,7 @@
         setup(){
             const router = useRouter();
 
-            const nav = inject("g-layout-navigation");
+            const nav = inject("@layout:navigation");
 
             const routes = router.options.routes.filter(({path}) => !/:/.test(path));
 
@@ -90,7 +90,7 @@
             </v-overlay>
         `,
         setup(){
-            const loading = inject("g-layout-loading");
+            const loading = inject("@layout:loading");
 
             return {loading};
         }
@@ -107,7 +107,7 @@
             </v-snackbar>
         `,
         setup(){
-            const notifies = inject("g-layout-notify");
+            const notifies = inject("@layout:notify");
 
             async function notifyTimeout(notify, ms){
                 await new Promise(done => setTimeout(done, ms));
@@ -147,8 +147,8 @@
         setup(){
             const count = ref(0);
 
-            const notifies = inject("g-layout-notify");
-            const countx = inject("g-increment-count");
+            const notifies = inject("@layout:notify");
+            const countx = inject("@increment:count");
 
             function increment(){
                 count.value++;
@@ -194,9 +194,9 @@
             </v-container>
         `,
         setup(){
-            const loading = inject("g-layout-loading");
-            const notifies = inject("g-layout-notify");
-            const countx = inject("g-increment-count");
+            const loading = inject("@layout:loading");
+            const notifies = inject("@layout:notify");
+            const countx = inject("@increment:count");
 
             function resetx(){
                 countx.value = 0;
@@ -319,10 +319,10 @@
 
     const provide = {
         install(context){
-            context.provide("g-layout-navigation", ref(false));
-            context.provide("g-layout-loading", ref(false));
-            context.provide("g-layout-notify", reactive([]));
-            context.provide("g-increment-count", ref(0));
+            context.provide("@layout:navigation", ref(false));
+            context.provide("@layout:loading", ref(false));
+            context.provide("@layout:notify", reactive([]));
+            context.provide("@increment:count", ref(0));
         }
     };
 
