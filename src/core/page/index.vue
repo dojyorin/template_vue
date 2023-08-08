@@ -24,8 +24,8 @@
         setup(){
             const count = ref(0);
 
-            const notifies = inject("g-layout-notify");
-            const countx = inject("g-increment-count");
+            const notifies = inject("@layout:notify");
+            const countx = inject("@increment:count");
 
             function increment(){
                 count.value++;

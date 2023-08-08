@@ -24,9 +24,9 @@
 
     export default defineComponent({
         setup(){
-            const loading = inject("g-layout-loading");
-            const notifies = inject("g-layout-notify");
-            const countx = inject("g-increment-count");
+            const loading = inject("@layout:loading");
+            const notifies = inject("@layout:notify");
+            const countx = inject("@increment:count");
 
             function resetx(){
                 countx.value = 0;
