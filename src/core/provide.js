@@ -1,6 +1,6 @@
 import {ref, reactive} from "../deps.js";
 
-export default {
+export const provide = {
     install(context){
         context.provide("@layout:navigation", ref(false));
         context.provide("@layout:loading", ref(false));

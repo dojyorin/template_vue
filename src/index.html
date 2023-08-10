@@ -23,10 +23,10 @@
 
 <script async type="module">
     import {createApp, fetchComponent} from "./deps.js";
-    import {default as router} from "./core/router.js";
-    import {default as vuetify} from "./core/vuetify.js";
-    import {default as component} from "./core/component.js";
-    import {default as provide} from "./core/provide.js";
+    import {router} from "./core/router.js";
+    import {vuetify} from "./core/vuetify.js";
+    import {component} from "./core/component.js";
+    import {provide} from "./core/provide.js";
 
     const vue = createApp(await fetchComponent("./core/main.vue")());
 
