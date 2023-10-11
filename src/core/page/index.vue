@@ -25,7 +25,7 @@
             const count = ref(0);
 
             const notifies = inject("@layout:notify");
-            const countx = inject("@increment:count");
+            const countx = inject("@count");
 
             function increment(){
                 count.value++;

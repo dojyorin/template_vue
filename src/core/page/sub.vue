@@ -8,10 +8,10 @@
                     </v-card-item>
 
                     <v-card-actions class="justify-center">
-                        <g-x-reflect>
+                        <z-reflect>
                             <v-btn color="orange-darken-1" variant="flat" @click="resetx()">ResetX</v-btn>
                             <v-btn color="teal-darken-1" variant="flat" @click="delayresetx()">DelayResetX</v-btn>
-                        </g-x-reflect>
+                        </z-reflect>
                     </v-card-actions>
                 </v-card>
             </v-col>
@@ -26,7 +26,7 @@
         setup(){
             const loading = inject("@layout:loading");
             const notifies = inject("@layout:notify");
-            const countx = inject("@increment:count");
+            const countx = inject("@count");
 
             function resetx(){
                 countx.value = 0;

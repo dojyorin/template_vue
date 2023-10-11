@@ -5,6 +5,6 @@ export const provide = {
         context.provide("@layout:navigation", ref(false));
         context.provide("@layout:loading", ref(false));
         context.provide("@layout:notify", reactive([]));
-        context.provide("@increment:count", ref(0));
+        context.provide("@count", ref(0));
     }
 };
