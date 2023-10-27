@@ -8,10 +8,10 @@
                     </v-card-item>
 
                     <v-card-actions class="justify-center">
-                        <z-reflect>
+                        <x-reflect>
                             <v-btn color="orange-darken-1" variant="flat" @click="resetx()">ResetX</v-btn>
                             <v-btn color="teal-darken-1" variant="flat" @click="delayresetx()">DelayResetX</v-btn>
-                        </z-reflect>
+                        </x-reflect>
                     </v-card-actions>
                 </v-card>
             </v-col>
