@@ -3,9 +3,6 @@
 <meta name="referrer" content="no-referrer">
 <meta name="viewport" content="height=device-height,width=device-width,minimum-scale=1,maximum-scale=1,initial-scale=1,user-scalable=no">
 
-<meta name="color-scheme" content="light dark">
-<meta name="theme-color" content="#FFFFFF">
-
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text x='50%' y='50%' style='dominant-baseline:central;text-anchor:middle;font-size:100px;'>📡</text></svg>">
 
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/vuetify@3/dist/vuetify.min.css">
@@ -148,7 +145,7 @@
             const count = ref(0);
 
             const notifies = inject("@layout:notify");
-            const countx = inject("@increment:count");
+            const countx = inject("@count");
 
             function increment(){
                 count.value++;
@@ -183,10 +180,10 @@
                             </v-card-item>
 
                             <v-card-actions class="justify-center">
-                                <g-x-reflect>
+                                <x-reflect>
                                     <v-btn color="orange-darken-1" variant="flat" @click="resetx()">ResetX</v-btn>
                                     <v-btn color="teal-darken-1" variant="flat" @click="delayresetx()">DelayResetX</v-btn>
-                                </g-x-reflect>
+                                </x-reflect>
                             </v-card-actions>
                         </v-card>
                     </v-col>
@@ -196,7 +193,7 @@
         setup(){
             const loading = inject("@layout:loading");
             const notifies = inject("@layout:notify");
-            const countx = inject("@increment:count");
+            const countx = inject("@count");
 
             function resetx(){
                 countx.value = 0;
@@ -313,7 +310,7 @@
 
     const component = {
         install(context){
-            context.component("g-x-reflect", sfc_component_reflect);
+            context.component("x-reflect", sfc_component_reflect);
         }
     };
 
@@ -322,7 +319,7 @@
             context.provide("@layout:navigation", ref(false));
             context.provide("@layout:loading", ref(false));
             context.provide("@layout:notify", reactive([]));
-            context.provide("@increment:count", ref(0));
+            context.provide("@count", ref(0));
         }
     };
 
