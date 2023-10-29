@@ -1,7 +1,11 @@
 import {fetchComponent, defineAsyncComponent} from "../deps.js";
 
+function f(path){
+    return defineAsyncComponent(fetchComponent(import.meta.resolve(path)));
+}
+
 export const component = {
     install(context){
-        context.component("x-reflect", defineAsyncComponent(fetchComponent("./core/component/reflect.vue")));
+        context.component("x-reflect", f("./component/reflect.vue"));
     }
 };
