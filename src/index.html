@@ -25,7 +25,7 @@
     import {component} from "./core/component.js";
     import {provide} from "./core/provide.js";
 
-    const vue = createApp(await fetchComponent("./core/main.vue")());
+    const vue = createApp(await fetchComponent("./sfc/main.vue")());
 
     vue.use(router);
     vue.use(vuetify);
