@@ -8,8 +8,8 @@ export const router = createRouter({
     history: createWebHashHistory(),
     routes: [{
         path: "/",
-        name: "index",
-        component: f("./page/index.vue")
+        name: "home",
+        component: f("./page/home.vue")
     }, {
         path: "/sub",
         name: "sub",
