@@ -6,6 +6,6 @@ function f(path){
 
 export const component = {
     install(context){
-        context.component("x-reflect", f("./component/reflect.vue"));
+        context.component("x-reflect", f("./common/reflect.vue"));
     }
 };
