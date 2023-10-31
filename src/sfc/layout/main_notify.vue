@@ -9,7 +9,7 @@
 </template>
 
 <script>
-    import {defineComponent, inject} from "../../../deps.js";
+    import {defineComponent, inject} from "../../deps.js";
 
     export default defineComponent({
         setup(){

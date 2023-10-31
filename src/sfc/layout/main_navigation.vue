@@ -13,7 +13,7 @@
 </template>
 
 <script>
-    import {defineComponent, inject, useRouter} from "../../../deps.js";
+    import {defineComponent, inject, useRouter} from "../../deps.js";
 
     export default defineComponent({
         setup(){
