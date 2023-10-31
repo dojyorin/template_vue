@@ -23,7 +23,7 @@
     import {createRouter, createWebHashHistory, useRouter} from "https://cdn.jsdelivr.net/npm/vue-router@4/dist/vue-router.esm-browser.min.js";
     import {createVuetify, useDisplay, useLayout} from "https://cdn.jsdelivr.net/npm/vuetify@3/dist/vuetify.esm.min.js";
 
-    const sfc_component_reflect = defineComponent({
+    const sfc_common_reflect = defineComponent({
         template: /*html*/`
             <div class="x-reflect">
                 <slot></slot>
@@ -31,7 +31,13 @@
         `
     });
 
-    const sfc_layout_header = defineComponent({
+    const sfc_layout_main_footer = defineComponent({
+        template: /*html*/`
+            <v-footer app color="black" class="justify-center align-center">Copyright</v-footer>
+        `
+    });
+
+    const sfc_layout_main_header = defineComponent({
         template: /*html*/`
             <v-app-bar density="compact" class="text-white">
                 <v-app-bar-nav-icon @click="nav = !nav"></v-app-bar-nav-icon>
@@ -49,13 +55,20 @@
         }
     });
 
-    const sfc_layout_footer = defineComponent({
+    const sfc_layout_main_loading = defineComponent({
         template: /*html*/`
-            <v-footer app color="black" class="justify-center align-center">Copyright</v-footer>
-        `
+            <v-overlay persistent no-click-animation z-index="4000" class="justify-center align-center" v-model="loading">
+                <v-progress-circular indeterminate size="60" width="4" color="primary"></v-progress-circular>
+            </v-overlay>
+        `,
+        setup(){
+            const loading = inject("@layout:loading");
+
+            return {loading};
+        }
     });
 
-    const sfc_layout_navigation = defineComponent({
+    const sfc_layout_main_navigation = defineComponent({
         template: /*html*/`
             <v-navigation-drawer floating temporary v-model="nav">
                 <v-toolbar density="compact" color="transparent">
@@ -80,20 +93,7 @@
         }
     });
 
-    const sfc_layout_loading = defineComponent({
-        template: /*html*/`
-            <v-overlay persistent no-click-animation z-index="4000" class="justify-center align-center" v-model="loading">
-                <v-progress-circular indeterminate size="60" width="4" color="primary"></v-progress-circular>
-            </v-overlay>
-        `,
-        setup(){
-            const loading = inject("@layout:loading");
-
-            return {loading};
-        }
-    });
-
-    const sfc_layout_notify = defineComponent({
+    const sfc_layout_main_notify = defineComponent({
         template: /*html*/`
             <v-snackbar v-for="notify in notifies" model-value position="fixed" location="top" z-index="3000" :color="notify.color" timeout="-1" v-bind="notifyTimeout(notify, 5000)">
                 <div>{{notify.message}}</div>
@@ -120,6 +120,34 @@
 
             return {notifies, notifyTimeout};
         }
+    });
+
+    const sfc_layout_main = defineComponent({
+        template: /*html*/`
+            <v-app>
+                <x-loading></x-loading>
+                <x-notify></x-notify>
+                <x-navigation></x-navigation>
+                <x-header></x-header>
+                <v-main>
+                    <router-view></router-view>
+                </v-main>
+                <x-footer></x-footer>
+            </v-app>
+        `,
+        components: {
+            "x-header": sfc_layout_main_header,
+            "x-footer": sfc_layout_main_footer,
+            "x-loading": sfc_layout_main_loading,
+            "x-notify": sfc_layout_main_notify,
+            "x-navigation": sfc_layout_main_navigation
+        }
+    });
+
+    const sfc_page_404 = defineComponent({
+        template: /*html*/`
+            <div class="fill-height d-flex justify-center align-center text-h4">Not Found</div>
+        `
     });
 
     const sfc_page_index = defineComponent({
@@ -238,34 +266,6 @@
         }
     });
 
-    const sfc_page_404 = defineComponent({
-        template: /*html*/`
-            <div class="fill-height d-flex justify-center align-center text-h4">Not Found</div>
-        `
-    });
-
-    const sfc_main = defineComponent({
-        template: /*html*/`
-            <v-app>
-                <x-loading></x-loading>
-                <x-notify></x-notify>
-                <x-navigation></x-navigation>
-                <x-header></x-header>
-                <v-main>
-                    <router-view></router-view>
-                </v-main>
-                <x-footer></x-footer>
-            </v-app>
-        `,
-        components: {
-            "x-header": sfc_layout_header,
-            "x-footer": sfc_layout_footer,
-            "x-loading": sfc_layout_loading,
-            "x-notify": sfc_layout_notify,
-            "x-navigation": sfc_layout_navigation
-        }
-    });
-
     const router = createRouter({
         history: createWebHashHistory(),
         routes: [{
@@ -310,7 +310,7 @@
 
     const component = {
         install(context){
-            context.component("x-reflect", sfc_component_reflect);
+            context.component("x-reflect", sfc_common_reflect);
         }
     };
 
@@ -323,7 +323,7 @@
         }
     };
 
-    const vue = createApp(sfc_main);
+    const vue = createApp(sfc_layout_main);
 
     vue.use(router);
     vue.use(vuetify);
