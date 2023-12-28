@@ -16,11 +16,11 @@
 
     export default defineComponent({
         components: {
-            "x-header": defineAsyncComponent(fetchComponent("./main_header.vue")),
-            "x-footer": defineAsyncComponent(fetchComponent("./main_footer.vue")),
             "x-loading": defineAsyncComponent(fetchComponent("./main_loading.vue")),
             "x-notify": defineAsyncComponent(fetchComponent("./main_notify.vue")),
-            "x-navigation": defineAsyncComponent(fetchComponent("./main_navigation.vue"))
+            "x-navigation": defineAsyncComponent(fetchComponent("./main_navigation.vue")),
+            "x-header": defineAsyncComponent(fetchComponent("./main_header.vue")),
+            "x-footer": defineAsyncComponent(fetchComponent("./main_footer.vue"))
         }
     });
 </script>
