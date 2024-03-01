@@ -5,4 +5,5 @@ export {createRouter, createWebHashHistory, useRouter} from "https://cdn.jsdeliv
 // @deno-types="https://esm.sh/vuetify@3/dist/vuetify.d.ts"
 export {createVuetify, useDisplay, useLayout} from "https://cdn.jsdelivr.net/npm/vuetify@3/dist/vuetify.esm.min.js";
 
+// @deno-types="https://github.com/dojyorin/vue_sfc_portable/raw/v1.6.9/mod.ts"
 export {fetchComponent} from "https://esm.sh/gh/dojyorin/vue_sfc_portable@v1.6.9/mod.ts?bundle&target=esnext";
